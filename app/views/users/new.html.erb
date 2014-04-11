@@ -27,6 +27,16 @@
       }
     }
 
+    function validateEmail(field) {
+      if (field.val().match(/.+@.+\..+/)) {
+        return true;
+      }
+      else {
+        field.addClass('form-field-error');
+        return false;
+      }
+    }
+
     function validate() {
       /* Clear existing errors. */
       errors.length = 0;
@@ -47,6 +57,11 @@
       if (username_elem.val().trim().length > 50) {
         username_elem.addClass('form-field-error');
         errors.push("Username too long.");
+        valid = false;
+      }
+
+      if (!validateEmail(email_elem)) {
+        errors.push("Invalid email address.");
         valid = false;
       }
 

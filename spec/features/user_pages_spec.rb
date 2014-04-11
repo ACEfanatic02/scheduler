@@ -63,6 +63,16 @@ describe "User pages" do
         expect(page).to have_selector('div.form-error-list>p.form-error', 
                                       text: "Password and confirmation do not match.")
       end
+
+      it "marks obviously wrong emails as an error" do
+        %w[foo+at+bar.com foo@bar @bar.com foo@ foobar.com].each do |invalid_email|
+          fill_in('email', with: invalid_email)
+          click_button('Register')
+          expect(page).to have_selector('input[name=email].form-field-error')
+          expect(page).to have_selector('div.form-error-list>p.form-error',
+                                        text: "Invalid email address.")
+        end
+      end
     end
   end
 end
