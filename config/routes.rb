@@ -1,6 +1,6 @@
 Scheduler::Application.routes.draw do
   # get "users/new"
-  # root 'index'
+  root 'application#index'
 
   match 'register', to: 'users#new', via: 'get'
   post 'users/create'
