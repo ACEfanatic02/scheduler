@@ -44,6 +44,15 @@ describe "User pages" do
                                       text: "Password too short.")
       end
 
+      it "counts whitespace when checking password length" do
+        fill_in('password', with: "abcdefg ")
+        fill_in('password_confirmation', with: "abcdefg ")
+        click_button('Register')
+        expect(page).not_to have_selector('input[name=password].form-field-error')
+        expect(page).not_to have_selector('div.form-error-list>p.form-error',
+                                          text: "Password too short.")
+      end
+
       it "marks unmatched password and confirmation as an error" do
         fill_in('password', with: "foobarbaz")
         fill_in('password_confirmation', with: "notamatch")

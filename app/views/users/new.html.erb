@@ -65,7 +65,7 @@
         valid = false;
       }
 
-      if (password_elem.val().trim().length < 8) {
+      if (password_elem.val().length < 8) {
         password_elem.addClass('form-field-error');
         errors.push("Password too short.");
         valid = false;
