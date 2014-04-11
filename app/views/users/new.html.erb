@@ -1,9 +1,27 @@
 <% provide(:title, 'Register') %>
 
+  <script>
+
+  $(document).ready(function() {
+
+    function validate() {
+      return true;
+    }
+
+    $("#register-button").click(function (e) {
+      e.preventDefault();
+      if (validate()) {
+        $("#registration-form").submit();
+      }
+    });
+  });
+
+  </script>
+
   <div id="registration-form-container">
   
     <h1>New User</h1>
-    <form action="" id="id" method="POST">
+    <form action="" id="registration-form" method="POST">
       <p>
         <label for="username">Username:</label>
         <input name="username" type="text">
@@ -21,7 +39,7 @@
         <input name="password_confirmation" type="password">
       </p>
       <div id="center-button">
-        <button type="button">Register</button>
+        <button type="button" id="register-button">Register</button>
       </div>
       <!-- Hack to get container wrap to include the button: -->
       <p>&nbsp;</p> 
