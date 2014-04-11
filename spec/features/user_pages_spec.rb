@@ -26,6 +26,33 @@ describe "User pages" do
         expect(page).to have_selector('input[name=password].form-field-error')
         expect(page).to have_selector('input[name=password_confirmation].form-field-error')
       end
+
+      it "marks a long username as an error" do
+        fill_in('username', with: "a" * 51)
+        click_button('Register')
+        expect(page).to have_selector('input[name=username].form-field-error')
+        expect(page).to have_selector('div.form-error-list>p.form-error',
+                                      text: "Username too long.")
+      end
+
+      it "marks a short password as an error" do
+        fill_in('password', with: "abcdefg")
+        fill_in('password_confirmation', with: "abcdefg")
+        click_button('Register')
+        expect(page).to have_selector('input[name=password].form-field-error')
+        expect(page).to have_selector('div.form-error-list>p.form-error',
+                                      text: "Password too short.")
+      end
+
+      it "marks unmatched password and confirmation as an error" do
+        fill_in('password', with: "foobarbaz")
+        fill_in('password_confirmation', with: "notamatch")
+        click_button('Register')
+        expect(page).to have_selector('input[name=password].form-field-error')
+        expect(page).to have_selector('input[name=password_confirmation].form-field-error')
+        expect(page).to have_selector('div.form-error-list>p.form-error', 
+                                      text: "Password and confirmation do not match.")
+      end
     end
   end
 end
