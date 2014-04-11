@@ -11,6 +11,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
   gem 'capybara', '2.2.1'
+  gem 'selenium-webdriver'
 end
 
 # Use SCSS for stylesheets

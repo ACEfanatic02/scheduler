@@ -4,8 +4,32 @@
 
   $(document).ready(function() {
 
+    function validateFieldNotEmpty(field) {
+      if (field.val().trim()) {
+        return true;
+      }
+      else {
+        $(field).addClass('form-field-error');
+        return false;
+      }
+    }
+
     function validate() {
-      return true;
+      var username_elem = $('input[name=username]');
+      var email_elem = $('input[name=email]');
+      var password_elem = $('input[name=password]');
+      var password_confirmation_elem = $('input[name=password_confirmation]');
+
+      var valid = true;
+
+      /* We want to mark *all* errors, so don't short-circuit the validation call. */
+      valid = validateFieldNotEmpty(username_elem) && valid;
+      valid = validateFieldNotEmpty(email_elem) && valid;
+      valid = validateFieldNotEmpty(password_elem) && valid;
+      valid = validateFieldNotEmpty(password_confirmation_elem) && valid;
+
+      console.log("valid?: " + valid);
+      return valid;
     }
 
     $("#register-button").click(function (e) {
