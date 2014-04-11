@@ -26,6 +26,23 @@
     border: 1px solid #F00;
   }
 
+  .form-error-list {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #F00;
+    background-color: #FCC;
+  }
+
+  .form-error {
+    color: #F00;
+    margin: .5em;
+  }
+
+  .hidden {
+    display: none;
+  }
+
   h1 {
     margin-left: 1em;
     color: $form-heading-color;

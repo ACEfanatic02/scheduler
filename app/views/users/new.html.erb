@@ -30,7 +30,7 @@
 
     function validate() {
       /* Clear existing errors. */
-      errors = [];
+      errors.length = 0;
 
       var username_elem = $('input[name=username]');
       var email_elem = $('input[name=email]');
@@ -60,6 +60,8 @@
       valid = validateFieldsMatch(password_elem, password_confirmation_elem) && valid;
 
       var error_list = $('.form-error-list');
+      error_list.html("");
+      if (errors.length) error_list.removeClass('hidden');
       for (var i = 0; i < errors.length; i++) {
         var error_elem = $("<p>");
         error_elem.addClass('form-error');
@@ -83,7 +85,7 @@
   <div id="registration-form-container">
   
     <h1>New User</h1>
-    <div class="form-error-list">
+    <div class="form-error-list hidden">
     </div>
     <form action="" id="registration-form" method="POST">
       <p>
