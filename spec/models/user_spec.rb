@@ -99,4 +99,11 @@ describe User do
     before { @user.password = @user.password_confirmation = "a" * 7 }
     it { should be_invalid }
   end
+
+  describe "user roles" do
+    describe "default values" do
+      specify { expect(@user.admin).to be_falsey }
+      specify { expect(@user.tutor).to be_falsey }
+    end
+  end
 end
