@@ -17,11 +17,10 @@
     }
 
     function validateFieldsMatch(fieldA, fieldB) {
-      if (fieldA.val().trim() === fieldB.val().trim()) {
+      if (fieldA.val() === fieldB.val()) {
         return true;
       }
       else {
-        errors.push("Password and confirmation do not match.")
         fieldA.addClass('form-field-error');
         fieldB.addClass('form-field-error');
         return false;
@@ -57,7 +56,10 @@
         valid = false;
       }
 
-      valid = validateFieldsMatch(password_elem, password_confirmation_elem) && valid;
+      if (!validateFieldsMatch(password_elem, password_confirmation_elem)) {
+        errors.push("Password and confirmation do not match.");
+        valid = false;
+      }
 
       var error_list = $('.form-error-list');
       error_list.html("");

@@ -53,6 +53,16 @@ describe "User pages" do
         expect(page).to have_selector('div.form-error-list>p.form-error', 
                                       text: "Password and confirmation do not match.")
       end
+
+      it "includes whitespace in comparing password and confirmation" do
+        fill_in('password', with: 'foobarbaz')
+        fill_in('password_confirmation', with: 'foobarbaz ')
+        click_button('Register')
+        expect(page).to have_selector('input[name=password].form-field-error')
+        expect(page).to have_selector('input[name=password_confirmation].form-field-error')
+        expect(page).to have_selector('div.form-error-list>p.form-error', 
+                                      text: "Password and confirmation do not match.")
+      end
     end
   end
 end
