@@ -89,3 +89,15 @@ var validateRegistrationForm = function() {
 
   return valid;
 }
+
+var validateLoginForm = function() {
+  var email_elem = $('input[name=email]');
+  var password_elem = $('input[name=password]');
+
+  valid = true;
+
+  valid = Validate.fieldNotEmpty(email_elem) && valid;
+  valid = Validate.fieldNotEmpty(password_elem) && valid;
+
+  return valid;
+}

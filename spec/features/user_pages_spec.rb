@@ -93,4 +93,33 @@ describe "User pages" do
       end
     end
   end
+
+  describe "login page" do
+    before { visit login_path }
+
+    it { should have_title("Login") }
+    it { should have_content("Login") }
+
+    it { should have_field('email') }
+    it { should have_field('password') }
+
+    it { should have_css('form button', text: 'Login') }
+
+    describe "form validation", js: true do
+      it "marks empty fields as errors" do
+        click_button('Login')
+        expect(page).to have_selector('input[name=email].form-field-error')
+        expect(page).to have_selector('input[name=password].form-field-error')
+      end
+
+      it "does no other validation" do
+        fill_in('email', with: 'foo')
+        fill_in('password', with: 'bar')
+
+        click_button('Login')
+
+        expect(page).to have_no_selector('.form-field-error')
+      end
+    end
+  end
 end
