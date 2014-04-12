@@ -4,9 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def index
-    flash[:success] = "Testing success flash!"
-    flash[:notice] = "Testing notice flash!"
-    flash[:error] = "Testing error flash!"
     render '/index'
+  end
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 end
