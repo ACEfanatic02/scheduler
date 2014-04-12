@@ -3,95 +3,9 @@
   <script>
 
   $(document).ready(function() {
-
-    var errors = [];
-
-    function validateFieldNotEmpty(field) {
-      if (field.val().trim()) {
-        return true;
-      }
-      else {
-        field.addClass('form-field-error');
-        return false;
-      }
-    }
-
-    function validateFieldsMatch(fieldA, fieldB) {
-      if (fieldA.val() === fieldB.val()) {
-        return true;
-      }
-      else {
-        fieldA.addClass('form-field-error');
-        fieldB.addClass('form-field-error');
-        return false;
-      }
-    }
-
-    function validateEmail(field) {
-      if (field.val().match(/.+@.+\..+/)) {
-        return true;
-      }
-      else {
-        field.addClass('form-field-error');
-        return false;
-      }
-    }
-
-    function validate() {
-      /* Clear existing errors. */
-      errors.length = 0;
-
-      var username_elem = $('input[name=username]');
-      var email_elem = $('input[name=email]');
-      var password_elem = $('input[name=password]');
-      var password_confirmation_elem = $('input[name=password_confirmation]');
-
-      var valid = true;
-
-      /* We want to mark *all* errors, so don't short-circuit the validation call. */
-      valid = validateFieldNotEmpty(username_elem) && valid;
-      valid = validateFieldNotEmpty(email_elem) && valid;
-      valid = validateFieldNotEmpty(password_elem) && valid;
-      valid = validateFieldNotEmpty(password_confirmation_elem) && valid;
-
-      if (username_elem.val().trim().length > 50) {
-        username_elem.addClass('form-field-error');
-        errors.push("Username too long.");
-        valid = false;
-      }
-
-      if (!validateEmail(email_elem)) {
-        errors.push("Invalid email address.");
-        valid = false;
-      }
-
-      if (password_elem.val().length < 8) {
-        password_elem.addClass('form-field-error');
-        errors.push("Password too short.");
-        valid = false;
-      }
-
-      if (!validateFieldsMatch(password_elem, password_confirmation_elem)) {
-        errors.push("Password and confirmation do not match.");
-        valid = false;
-      }
-
-      var error_list = $('.form-error-list');
-      error_list.html("");
-      if (errors.length) error_list.removeClass('hidden');
-      for (var i = 0; i < errors.length; i++) {
-        var error_elem = $("<p>");
-        error_elem.addClass('form-error');
-        error_elem.text(errors[i]);
-        error_list.append(error_elem);
-      };
-
-      return valid;
-    }
-
     $("#register-button").click(function (e) {
       e.preventDefault();
-      if (validate()) {
+      if (validateRegistrationForm()) {
         $("#registration-form").submit();
       }
     });
