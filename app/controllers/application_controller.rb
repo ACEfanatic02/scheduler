@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def index
+    flash[:success] = "Testing success flash!"
+    flash[:notice] = "Testing notice flash!"
+    flash[:error] = "Testing error flash!"
     render '/index'
   end
 end

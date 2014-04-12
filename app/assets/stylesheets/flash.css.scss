@@ -1,0 +1,40 @@
+
+@import "_colors.scss";
+
+.flash {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+.flash-success {
+  background-color: $flash-success-background;
+  border: 1px solid $flash-success-foreground;
+
+  .flash-message-success {
+    color: #333;
+    margin: .5em;
+  }
+}
+
+.flash-error {
+  background-color: $flash-error-background;
+  border: 1px solid $flash-error-foreground;
+
+  .flash-message-error {
+    color: $flash-error-foreground;
+    margin: .5em;
+  }
+}
+
+.flash-notice {
+  background-color: $flash-notice-background;
+  border: 1px solid $flash-notice-foreground;
+
+  .flash-message-notice {
+    color: $flash-notice-foreground;
+    margin: .5em;
+  }
+}
