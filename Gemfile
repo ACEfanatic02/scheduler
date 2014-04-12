@@ -12,6 +12,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
   gem 'capybara', github: 'jnicklas/capybara', branch: 'master' # '2.2.1'
   gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 # Use SCSS for stylesheets

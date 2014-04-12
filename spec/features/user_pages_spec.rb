@@ -82,6 +82,15 @@ describe "User pages" do
                                         text: "Invalid email address.")
         end
       end
+
+      it "submits a valid form" do
+        fill_in('username', with: 'user')
+        fill_in('email', with: 'user@example.com')
+        fill_in('password', with: 'password') 
+        fill_in('password_confirmation', with: 'password')
+
+        expect { click_button('Register') }.to change(User, :count).by(1)
+      end
     end
   end
 end
