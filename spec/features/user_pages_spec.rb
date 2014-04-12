@@ -121,5 +121,29 @@ describe "User pages" do
         expect(page).to have_no_selector('.form-field-error')
       end
     end
+
+    describe "form submission", js: true do
+      before do
+        user = User.new(username: 'user', email: 'user@example.com',
+                        password: 'password', password_confirmation: 'password')
+        user.save!
+      end
+
+      it "rejects wrong credentials" do
+        fill_in('email', with: 'user@example.com')
+        fill_in('password', with: 'wrongpassword')
+
+        click_button('Login')
+        expect(page).to have_selector('.flash-message-error', text: "Invalid email or password.")
+      end
+
+      it "succeeds with correct credentials" do
+        fill_in('email', with: 'user@example.com')
+        fill_in('password', with: 'password')
+
+        click_button('Login')
+        expect(page).to have_selector('.flash-message-success', text: "Successfully logged in.")
+      end
+    end
   end
 end
