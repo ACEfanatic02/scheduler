@@ -13,14 +13,14 @@ Instead, we have *three* tables:  Tutor, Client, and Appointment.
 This isn't perfect, rather than 'User has a Tutor / Client', I'd much prefer 'User _is_ a Tutor / Client.'
 
 User
- - belongs_to :tutor
- - belongs_to :client
+ - has_one :tutor
+ - has_one :client
 
 Tutor
- - has_one :user
+ - belongs_to :user
  - has_many :clients, through: :appointment
 
 Client
- - has_one :user
+ - belongs_to :user
  - has_many :tutors, through: :appointment
 
