@@ -1,0 +1,26 @@
+Appointments are a relation between two users: tutor and client.  However, a tutor can also be a client for another tutor.  Therefore, breaking the user model into separate tutor and client models does not solve the problem. 
+
+Instead, we have *three* tables:  Tutor, Client, and Appointment.
+
+          +--------+
+         /| Tutor  |\
++------+/ +--------+ \+-------------+
+| User |              | Appointment |
++------+\ +--------+ /+-------------+
+         \| Client |/
+          +--------+
+
+This isn't perfect, rather than 'User has a Tutor / Client', I'd much prefer 'User _is_ a Tutor / Client.'
+
+User
+ - belongs_to :tutor
+ - belongs_to :client
+
+Tutor
+ - has_one :user
+ - has_many :clients, through: :appointment
+
+Client
+ - has_one :user
+ - has_many :tutors, through: :appointment
+
