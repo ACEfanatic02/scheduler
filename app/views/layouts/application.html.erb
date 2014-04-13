@@ -8,6 +8,14 @@
 </head>
 <body>
 
+<div id="top-nav">
+  <% if current_user.nil? %>
+    <%= link_to "Login", login_path, class: 'nav-item' %>
+  <% else %>
+    <%= link_to "Logout", logout_path, class: 'nav-item', method: :delete %>
+  <% end %>
+</div>
+
 <% flash.each do |key, value| %>
   <div class='flash flash-<%= key %>'>
     <p class='flash-message-<%= key %>'><%= value %></p>

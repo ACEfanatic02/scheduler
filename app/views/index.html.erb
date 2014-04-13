@@ -1,3 +1,9 @@
 <% provide(:title, 'Home') %>
 
-<a href="/login/">Login</a>
+<% if current_user.nil? %>
+  <p>Not logged in.</p>
+<% else %>
+  <p>Logged in as <%= current_user.username %></p>
+<% end %>
+
+<h1>Hello World.</h1>
