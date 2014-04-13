@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   before_save { self.email = email.downcase }
 
+  has_one :tutor
+  has_one :client
+
   # "Proper' regex is a loser's game here.
   # Just check for something vaugely email-shaped.
   VALID_EMAIL_REGEX = /.+@.+\..+/
