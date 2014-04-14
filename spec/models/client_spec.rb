@@ -6,7 +6,7 @@ describe Client do
     @user = User.new(username: "test1234", email: "test1234@example.com",
                      password: "foobarbaz", password_confirmation: "foobarbaz")
     @user.save!
-    @client = @user.build_client
+    @client = @user.client
   end
 
   subject { @client }
