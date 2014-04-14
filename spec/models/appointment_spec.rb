@@ -16,18 +16,44 @@ describe Appointment do
     @client.save!
     @tutor.save!
 
-    @appointment = Appointment.new(client: @client, tutor: @tutor)
+    @subject = Subject.new(course_number: "CSC200", course_name: "Intro to Computer Science")
+
+    @tutor.subjects << @subject
+
+    @appointment = Appointment.new(client: @client, tutor: @tutor, subject: @subject)
   end
 
   subject { @appointment }
 
   it { should respond_to(:client) }
   it { should respond_to(:tutor) }
+  it { should respond_to(:subject) }
 
   it { should be_valid }
 
-  it "can access client and tutor instances" do
-    expect(@appointment.client).to eq(@client)
-    expect(@appointment.tutor).to eq(@tutor)
+  describe "validation" do
+
+    describe "with no tutor" do
+      before { @appointment.tutor = nil }
+      it { should_not be_valid }
+    end
+
+    describe "with no client" do
+      before { @appointment.client = nil }
+      it { should_not be_valid }
+    end
+
+    describe "with no subject" do
+      before { @appointment.subject = nil }
+      it { should_not be_valid }
+    end
+
+    describe "with subject tutor does not teach" do
+      before do 
+        @appointment.subject = Subject.new(course_number: "ENG111", 
+                                           course_name: "English Composition I") 
+      end
+      it { should_not be_valid }
+    end
   end
 end
