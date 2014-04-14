@@ -7,6 +7,9 @@ class Appointment < ActiveRecord::Base
   validates :client, presence: true
   validates :subject, presence: true
 
+  validates :length, numericality: { greater_than_or_equal_to: 0 }
+  validates :start_time, presence: true
+
   validate :tutor_teaches_subject
 
   def tutor_teaches_subject

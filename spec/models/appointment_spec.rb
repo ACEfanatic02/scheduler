@@ -20,7 +20,11 @@ describe Appointment do
 
     @tutor.subjects << @subject
 
-    @appointment = Appointment.new(client: @client, tutor: @tutor, subject: @subject)
+    @appointment = Appointment.new(client: @client, 
+                                   tutor: @tutor, 
+                                   subject: @subject, 
+                                   start_time: Time.now.beginning_of_hour, 
+                                   length: 15)
   end
 
   subject { @appointment }
@@ -28,6 +32,9 @@ describe Appointment do
   it { should respond_to(:client) }
   it { should respond_to(:tutor) }
   it { should respond_to(:subject) }
+
+  it { should respond_to(:start_time) }
+  it { should respond_to(:length) }
 
   it { should be_valid }
 
@@ -48,12 +55,24 @@ describe Appointment do
       it { should_not be_valid }
     end
 
+    describe "with no start time" do
+      before { @appointment.start_time = nil }
+      it { should_not be_valid }
+    end
+
     describe "with subject tutor does not teach" do
       before do 
         @appointment.subject = Subject.new(course_number: "ENG111", 
                                            course_name: "English Composition I") 
       end
       it { should_not be_valid }
+    end
+
+    describe "with invalid length" do
+      [0, -15].each do |len|
+        before { @appointment.length = len }
+        it { should_not be_valid }
+      end
     end
   end
 end
