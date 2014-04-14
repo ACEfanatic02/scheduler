@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   before_save { self.email = email.downcase }
+  after_save { build_client.save! }
 
   has_one :tutor
   has_one :client

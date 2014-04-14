@@ -15,6 +15,7 @@ describe User do
 
   it { should respond_to(:admin) }
   it { should respond_to(:tutor) }
+  it { should respond_to(:client) }
 
   it { should respond_to(:authenticate) }
 
@@ -101,9 +102,14 @@ describe User do
   end
 
   describe "user roles" do
+    before do
+      @user.save!
+    end
+
     describe "default values" do
       specify { expect(@user.admin).to be_falsey }
-      specify { expect(@user.tutor).to be_falsey }
+      specify { expect(@user.tutor).to be_nil }
+      specify { expect(@user.client).to_not be_nil }
     end
   end
 end
