@@ -20,4 +20,16 @@ describe Subject do
     before { @subject.course_name = " " }
     it { should_not be_valid }
   end
+
+  describe "with duplicate course_number" do
+    before do 
+      @subject.save!
+    end
+
+    it "should not be valid with duplicate" do
+      duplicate = Subject.new(course_number: @subject.course_number, 
+                              course_name: @subject.course_name)
+      expect(duplicate).to_not be_valid
+    end
+  end
 end
