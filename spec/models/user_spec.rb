@@ -17,6 +17,7 @@ describe User do
   it { should respond_to(:tutor) }
   it { should respond_to(:client) }
 
+  it { should respond_to(:tutor?) }
   it { should respond_to(:authenticate) }
 
   it { should be_valid }
@@ -110,6 +111,12 @@ describe User do
       specify { expect(@user.admin).to be_falsey }
       specify { expect(@user.tutor).to be_nil }
       specify { expect(@user.client).to_not be_nil }
+    end
+
+    it "knows whether it is a tutor" do
+      expect(@user.tutor?).to be_falsey
+      @user.build_tutor.save!
+      expect(@user.tutor?).to be_truthy
     end
   end
 end
