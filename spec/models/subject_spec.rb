@@ -9,6 +9,8 @@ describe Subject do
   it { should respond_to(:course_number) }
   it { should respond_to(:course_name) }
 
+  it { should respond_to(:tutors) }
+
   it { should be_valid }  
 
   describe "when course number is not present" do
@@ -30,6 +32,18 @@ describe Subject do
       duplicate = Subject.new(course_number: @subject.course_number, 
                               course_name: @subject.course_name)
       expect(duplicate).to_not be_valid
+    end
+  end
+
+  describe "tutors" do
+    before do
+      @tutor = Tutor.new
+      @tutor.subjects << @subject
+      @tutor.save!
+    end
+
+    it "can access a list of tutors who teach this subject" do
+      expect(@subject.tutors.exists?(@tutor)).to be_truthy
     end
   end
 end
