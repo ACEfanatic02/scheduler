@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     if @user.save
       flash[:success] = "User successfully created!"
       redirect_to root_url
+      session[:user_id] = @user.id
     else
       render 'new'
     end
