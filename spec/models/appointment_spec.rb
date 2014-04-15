@@ -88,5 +88,43 @@ describe Appointment do
 
       it { should_not be_valid }
     end
+
+    describe "when overlapping existing appointment time for same tutor" do
+      before do
+        other = @appointment.dup
+        other.start_time += 15.minutes
+        other.end_time += 15.minutes
+        other.save!
+      end
+
+      it { should_not be_valid }
+    end
+
+    describe "with adjacent appointments for same tutor" do
+      before do
+        before = @appointment.dup
+        before.start_time = @appointment.start_time - 15.minutes
+        before.end_time = @appointment.start_time
+        before.save!
+
+        after = @appointment.dup
+        after.start_time = @appointment.end_time
+        after.end_time = @appointment.end_time + 15.minutes
+        after.save!
+      end
+
+      it { should be_valid }
+    end
+
+    describe "with overlapping appointment for different tutor" do
+      before do
+        other = @appointment.dup
+        other.tutor = Tutor.create!
+        other.tutor.subjects << @subject
+        other.save!
+      end
+
+      it { should be_valid }
+    end
   end
 end

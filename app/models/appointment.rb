@@ -13,6 +13,10 @@ class Appointment < ActiveRecord::Base
   validate :tutor_teaches_subject
   validate :positive_time_range
 
+  validates_uniqueness_of :tutor, if: ->(appt) { 
+    Appointment.where("((start_time < ?) and (end_time > ?))", end_time, start_time).exists? 
+  }
+
   def length
     ((end_time - start_time) / 60).floor
   end
