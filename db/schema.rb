@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140415001936) do
+ActiveRecord::Schema.define(version: 20140415211454) do
 
   create_table "appointments", force: true do |t|
     t.integer  "tutor_id"
@@ -22,8 +22,6 @@ ActiveRecord::Schema.define(version: 20140415001936) do
     t.datetime "start_time"
     t.datetime "end_time"
   end
-
-  add_index "appointments", ["start_time"], name: "index_appointments_on_start_time", unique: true
 
   create_table "clients", force: true do |t|
     t.integer  "user_id"

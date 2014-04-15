@@ -125,6 +125,15 @@ describe Appointment do
       end
 
       it { should be_valid }
+
+      it "does not block a non-overlapping appointment with the first tutor" do
+        @appointment.save!
+        after = @appointment.dup
+        after.start_time = @appointment.end_time
+        after.end_time = @appointment.end_time + 15.minutes
+
+        expect(after).to be_valid
+      end
     end
   end
 end
