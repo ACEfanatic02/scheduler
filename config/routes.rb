@@ -1,13 +1,12 @@
 Scheduler::Application.routes.draw do
-  # get "users/new"
   root 'application#index'
 
   match 'register', to: 'users#new', via: 'get'
-  post 'users/create'
 
   match 'login', to: 'sessions#new', via: 'get'
   match 'logout', to: 'sessions#destroy', via: 'delete' 
 
+  resource :users
   resource :sessions
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
