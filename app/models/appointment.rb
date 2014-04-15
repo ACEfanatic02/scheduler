@@ -7,10 +7,25 @@ class Appointment < ActiveRecord::Base
   validates :client, presence: true
   validates :subject, presence: true
 
-  validates :length, numericality: { greater_than_or_equal_to: 0 }
   validates :start_time, presence: true
+  validates :end_time, presence: true
 
   validate :tutor_teaches_subject
+  validate :positive_time_range
+
+  def length
+    ((end_time - start_time) / 60).floor
+  end
+
+  def length=(len)
+    self.end_time = start_time + (60 * len)
+  end
+
+  def positive_time_range
+    unless start_time && end_time && (end_time - start_time > 0)
+      errors.add(:length, "appointment length must be positive")
+    end
+  end
 
   def tutor_teaches_subject
     unless subject && tutor && tutor.subjects.exists?(subject.id)

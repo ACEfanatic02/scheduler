@@ -24,7 +24,7 @@ describe Appointment do
                                    tutor: @tutor, 
                                    subject: @subject, 
                                    start_time: Time.now.beginning_of_hour, 
-                                   length: 15)
+                                   end_time: Time.now.end_of_hour)
   end
 
   subject { @appointment }
@@ -60,6 +60,11 @@ describe Appointment do
       it { should_not be_valid }
     end
 
+    describe "with no end time" do
+      before { @appointment.end_time = nil }
+      it { should_not be_valid }
+    end
+
     describe "with subject tutor does not teach" do
       before do 
         @appointment.subject = Subject.new(course_number: "ENG111", 
@@ -68,11 +73,20 @@ describe Appointment do
       it { should_not be_valid }
     end
 
-    describe "with invalid length" do
-      [0, -15].each do |len|
-        before { @appointment.length = len }
-        it { should_not be_valid }
+    describe "with negative time range" do
+      before do
+        @appointment.end_time = @appointment.start_time - 1.minutes;
       end
+
+      it { should_not be_valid }
+    end
+
+    describe "with equal start and end times" do
+      before do
+        @appointment.end_time = @appointment.start_time
+      end
+
+      it { should_not be_valid }
     end
   end
 end
