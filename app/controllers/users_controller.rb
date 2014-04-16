@@ -17,9 +17,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.delete(params[:id])
-    flash[:success] = "User successfully deleted!"
-    redirect_to root_url
+    if User.exists?(params[:id])
+      User.destroy(params[:id])
+      flash[:success] = "User successfully deleted!"
+      redirect_to root_url
+    else
+      flash[:error] = "User does not exist!"
+      redirect_to root_url
+    end
   end
 
   private

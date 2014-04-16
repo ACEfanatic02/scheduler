@@ -63,6 +63,17 @@ describe UsersController do
           expect(User.exists?(@user.id)).to be_falsey
         end
       end
+
+      describe "with a non-existing user" do
+
+        it "sends the user to root with an error message" do
+          delete :destroy, { id: -1 }
+
+          expect(flash[:success]).to be_nil
+          expect(flash[:error]).to_not be_nil
+          expect(response).to redirect_to root_url
+        end
+      end
     end
 
     describe "without admin rights" do
