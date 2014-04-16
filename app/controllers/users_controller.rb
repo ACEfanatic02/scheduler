@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+  before_action :require_admin, except: [:new, :create]
+
   def new
   end
 
@@ -11,6 +14,12 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def destroy
+    User.delete(params[:id])
+    flash[:success] = "User successfully deleted!"
+    redirect_to root_url
   end
 
   private

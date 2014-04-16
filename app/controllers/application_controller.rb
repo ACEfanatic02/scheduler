@@ -12,4 +12,12 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
+
+  def require_admin
+    unless current_user && current_user.admin?
+      flash[:error] = "This action requires administrative privileges."
+      redirect_to root_url
+      false
+    end
+  end
 end

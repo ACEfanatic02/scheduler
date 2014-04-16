@@ -36,4 +36,49 @@ describe UsersController do
       end
     end
   end
+
+  describe "#destroy" do
+
+    describe "with admin rights" do
+      before do
+        @admin = User.new(username: 'admin', email: 'admin@example.com', 
+                          password: 'adminpass', password_confirmation: 'adminpass',
+                          admin: true)
+        @admin.save!
+
+        session[:user_id] = @admin.id
+      end
+
+      describe "with an existing user" do
+        before do
+          @user = User.new(username: 'user', email: 'user@example.com', 
+                           password: 'password', password_confirmation: 'password')
+          @user.save!
+        end
+
+        it "deletes the user" do
+          delete :destroy, { id: @user.id }
+
+          expect(flash[:success]).to_not be_nil
+          expect(User.exists?(@user.id)).to be_falsey
+        end
+      end
+    end
+
+    describe "without admin rights" do
+      before do
+        @user = User.new(username: 'user', email: 'user@example.com', 
+                         password: 'password', password_confirmation: 'password')
+        @user.save!
+      end
+
+      it "redirects to root without deleting user" do
+        delete :destroy, { id: @user.id }
+
+        expect(flash[:error]).to_not be_nil
+        expect(User.exists?(@user.id)).to be_truthy
+        expect(response).to redirect_to root_url
+      end
+    end
+  end
 end
