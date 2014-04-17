@@ -42,6 +42,7 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.include(ControllerMacros, type: :controller)
+  config.include(FeatureMacros, type: :feature)
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

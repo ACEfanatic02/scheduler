@@ -146,4 +146,43 @@ describe "User pages" do
       end
     end
   end
+
+  describe "users index do", js: true do
+    before do
+      User.create(username: 'admin', email: 'admin@example.com',
+                  password: 'password', password_confirmation: 'password', admin: true)
+      User.create(username: 'user', email: 'user@example.com',
+                  password: 'password', password_confirmation: 'password')
+    end
+
+    describe "while not logged in" do
+      before { visit users_path }
+
+      it "should display an error" do
+        expect(page).to have_selector('.flash-message-error', text: "This action requires administrative privileges.")
+      end
+    end
+
+    describe "when logged in as a user" do
+      before do
+        login_as 'user@example.com', 'password'
+        visit users_path
+      end
+
+      it "should display an error" do
+        expect(page).to have_selector('.flash-message-error', text: "This action requires administrative privileges.")
+      end
+    end
+
+    describe "when logged in as an admin" do
+      before do
+        login_as 'admin@example.com', 'password'
+        visit users_path
+      end
+
+      it "should not display an error" do
+        expect(page).to have_no_selector('.flash-message-error')
+      end
+    end
+  end
 end
