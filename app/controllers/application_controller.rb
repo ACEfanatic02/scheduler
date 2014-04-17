@@ -20,4 +20,12 @@ class ApplicationController < ActionController::Base
       false
     end
   end
+
+  def require_user_login_or_admin
+    unless current_user && (current_user.id == params[:id].to_i || current_user.admin?)
+      flash[:error] = "This action requires administrative privileges."
+      redirect_to root_url
+      false
+    end
+  end
 end

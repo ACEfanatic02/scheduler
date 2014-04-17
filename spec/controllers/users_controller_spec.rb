@@ -33,6 +33,36 @@ describe UsersController do
     end
   end
 
+  describe '#show' do
+    before do
+      @admin = User.create(username: 'admin', email: 'admin@example.com', 
+                           password: 'adminpass', password_confirmation: 'adminpass',
+                           admin: true)
+      @user = User.create(username: 'user', email: 'user@example.com', 
+                          password: 'password', password_confirmation: 'password')
+    end
+
+    describe "without admin rights" do
+      before do
+        session[:user_id] = @user
+      end
+
+      it "blocks access to a different user's page" do
+        get :show, { id: @admin }
+
+        expect(flash[:error]).to_not be_nil
+        expect(response).to redirect_to root_url
+      end
+
+      it "allows access to user's own page" do
+        get :show, { id: @user }
+
+        expect(flash[:error]).to be_nil
+        expect(response.response_code).to eq(200)
+      end
+    end
+  end
+
   describe '#create' do
 
     describe "with valid user data" do

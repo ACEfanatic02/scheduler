@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 
-  before_action :require_admin, except: [:new, :create]
+  before_action :require_admin, except: [:new, :create, :show]
+
+  before_action :require_user_login_or_admin, only: [:show]
 
   def index
     @users = User.all
