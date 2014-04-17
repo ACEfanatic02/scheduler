@@ -2,6 +2,37 @@ require 'spec_helper'
 
 describe UsersController do
 
+  describe '#index' do
+    before do
+      @admin = User.create(username: 'admin', email: 'admin@example.com', 
+                           password: 'adminpass', password_confirmation: 'adminpass',
+                           admin: true)
+    end
+
+    describe "without admin rights" do
+
+      it "redirects to root page with an error message" do
+        get :index
+
+        expect(flash[:error]).to_not be_nil
+        expect(response).to redirect_to root_url
+      end
+    end
+
+    describe "with admin rights" do
+      before do
+        session[:user_id] = @admin
+      end
+
+      it "succeeds" do
+        get :index
+
+        expect(flash[:error]).to be_nil
+        expect(response.response_code).to eq(200)
+      end
+    end
+  end
+
   describe '#create' do
 
     describe "with valid user data" do
