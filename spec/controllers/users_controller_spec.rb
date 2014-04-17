@@ -42,6 +42,16 @@ describe UsersController do
                           password: 'password', password_confirmation: 'password')
     end
 
+    describe "when not logged in" do
+
+      it "blocks access to user pages" do
+        get :show, { id: @admin }
+
+        expect(flash[:error]).to_not be_nil
+        expect(response).to redirect_to root_url
+      end
+    end
+
     describe "without admin rights" do
       before do
         session[:user_id] = @user
@@ -55,6 +65,19 @@ describe UsersController do
       end
 
       it "allows access to user's own page" do
+        get :show, { id: @user }
+
+        expect(flash[:error]).to be_nil
+        expect(response.response_code).to eq(200)
+      end
+    end
+
+    describe "with admin rights" do
+      before do
+        session[:user_id] = @admin
+      end
+
+      it "allows access to different user's page" do
         get :show, { id: @user }
 
         expect(flash[:error]).to be_nil
