@@ -21,7 +21,7 @@ describe UsersController do
 
     describe "with admin rights" do
       before do
-        session[:user_id] = @admin
+        login_as @admin
       end
 
       it "succeeds" do
@@ -54,7 +54,7 @@ describe UsersController do
 
     describe "without admin rights" do
       before do
-        session[:user_id] = @user
+        login_as @user
       end
 
       it "blocks access to a different user's page" do
@@ -74,7 +74,7 @@ describe UsersController do
 
     describe "with admin rights" do
       before do
-        session[:user_id] = @admin
+        login_as @admin
       end
 
       it "allows access to different user's page" do
@@ -125,19 +125,16 @@ describe UsersController do
 
     describe "with admin rights" do
       before do
-        @admin = User.new(username: 'admin', email: 'admin@example.com', 
-                          password: 'adminpass', password_confirmation: 'adminpass',
-                          admin: true)
-        @admin.save!
-
-        session[:user_id] = @admin.id
+        @admin = User.create(username: 'admin', email: 'admin@example.com', 
+                            password: 'adminpass', password_confirmation: 'adminpass',
+                            admin: true)
+        login_as @admin
       end
 
       describe "with an existing user" do
         before do
-          @user = User.new(username: 'user', email: 'user@example.com', 
-                           password: 'password', password_confirmation: 'password')
-          @user.save!
+          @user = User.create(username: 'user', email: 'user@example.com', 
+                              password: 'password', password_confirmation: 'password')
         end
 
         it "deletes the user" do
@@ -162,9 +159,8 @@ describe UsersController do
 
     describe "without admin rights" do
       before do
-        @user = User.new(username: 'user', email: 'user@example.com', 
-                         password: 'password', password_confirmation: 'password')
-        @user.save!
+        @user = User.create(username: 'user', email: 'user@example.com', 
+                            password: 'password', password_confirmation: 'password')
       end
 
       it "redirects to root without deleting user" do
