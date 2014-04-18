@@ -9,6 +9,18 @@ describe TutorsController do
                          password: 'password', password_confirmation: 'password')
   end
 
+  describe '#index' do
+    before do
+      @user.build_tutor.save!
+    end
+
+    it "does not require admin access" do
+      get :index
+
+      expect(flash[:error]).to be_nil
+    end
+  end
+
   describe '#create' do
 
     describe "without admin access" do

@@ -1,5 +1,9 @@
 class TutorsController < ApplicationController
-  before_action :require_admin
+  before_action :require_admin, except: [:index]
+
+  def index
+    @tutors = Tutor.all
+  end
 
   def create
     user = User.find_by_id(params[:user_id])
