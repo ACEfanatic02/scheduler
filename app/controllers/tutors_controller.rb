@@ -7,11 +7,7 @@ class TutorsController < ApplicationController
       flash[:notice] = "#{user.username} is already a tutor."
     else
       tutor = user.build_tutor
-      params[:subjects] && params[:subjects].each do |subject|
-        unless tutor.subjects.exists?(subject)
-          tutor.subjects << Subject.find(subject)
-        end
-      end
+      add_subjects(tutor)
       tutor.save!
       flash[:success] = "#{user.username} is now a tutor."
     end
@@ -20,15 +16,21 @@ class TutorsController < ApplicationController
 
   def update
     if tutor = Tutor.find_by_id(params[:id])
-      params[:subjects] && params[:subjects].each do |subject|
-        unless tutor.subjects.exists?(subject)
-          tutor.subjects << Subject.find(subject)
-        end
-      end
+      add_subjects(tutor)
       redirect_to users_path(tutor.user)
     else
       flash[:error] = "Tutor does not exist."
       redirect_to root_url # temporarily redirect to root
+    end
+  end
+
+  private
+
+  def add_subjects(tutor)
+    params[:subjects] && params[:subjects].each do |subject|
+      unless tutor.subjects.exists?(subject)
+        tutor.subjects << Subject.find(subject)
+      end
     end
   end
 end
