@@ -183,6 +183,23 @@ describe "User pages" do
       it "should not display an error" do
         expect(page).to have_no_selector('.flash-message-error')
       end
+
+      it "should list user names and emails" do
+        ['admin', 'user'].each do |username|
+          expect(page).to have_link(username)
+        end
+
+        ['admin@example.com', 'user@example.com'].each do |email|
+          expect(page).to have_content(email)
+        end
+      end
+
+      it "should link to user pages" do
+        click_link('admin')
+        expect(page).to have_selector('h1', text: 'User Profile')
+        expect(page).to have_content('admin')
+        expect(page).to have_content('admin@example.com')
+      end
     end
   end
 end

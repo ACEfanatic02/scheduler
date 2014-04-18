@@ -3,9 +3,9 @@
 <ul>
   <% for user in @users %>
   <li>
-    <span><%= user.username %></span> -
+    <span><%= link_to user.username, user_path(user) %></span> -
     <span><%= user.email %></span>
-    <%= link_to 'Delete', user_path(user.id), method: :delete %>
+    <%= link_to 'Delete', user_path(user), method: :delete %>
   </li>
   <% end %>
 </ul>
