@@ -21,6 +21,18 @@ describe TutorsController do
     end
   end
 
+  describe '#show' do
+    before do
+      @user.build_tutor.save!
+    end
+
+    it "does not require admin access" do
+      get :show, { id: @user.tutor }
+
+      expect(flash[:error]).to be_nil      
+    end
+  end
+
   describe '#create' do
 
     describe "without admin access" do

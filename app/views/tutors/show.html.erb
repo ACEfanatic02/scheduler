@@ -1,0 +1,7 @@
+<% provide(:title, "Tutor: #{@tutor.user.username}") %>
+
+<ul>
+  <% @tutor.subjects.each do |subject| %>
+  <li><%= subject.course_number %> - <%= subject.course_name %></li>
+  <% end %>
+</ul>

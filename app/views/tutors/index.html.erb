@@ -1,1 +1,7 @@
 <% provide(:title, 'Tutor List') %>
+<h1>Tutors:</h1>
+<ul>
+<% @tutors.each do |tutor| %>
+<li><%= link_to tutor.user.username, tutors_path(tutor) %></li>
+<% end %> 
+</ul>

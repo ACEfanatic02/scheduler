@@ -1,8 +1,12 @@
 class TutorsController < ApplicationController
-  before_action :require_admin, except: [:index]
+  before_action :require_admin, except: [:index, :show]
 
   def index
     @tutors = Tutor.all
+  end
+
+  def show
+    @tutor = Tutor.find(params[:id])
   end
 
   def create
