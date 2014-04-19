@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<div id="container">
+
 <div id="header">
   <div id="header-banner">
      <h1>
@@ -15,14 +17,15 @@
      </h1>
   </div>
   <div id="top-nav">
+    <p class="spacer nav-item"></p>
     <% if current_user.nil? %>
-      <p class="spacer nav-item"></p>
-      <%= link_to "Register", register_path, class: 'nav-item' %>
-      <%= link_to "Login", login_path, class: 'nav-item' %>
+      <%= link_to "Register", register_path, class: 'nav-item nav-right' %>
+      <%= link_to "Login", login_path, class: 'nav-item nav-right' %>
     <% else %>
-      <%= link_to "Logout", logout_path, class: 'nav-item', method: :delete %>
+      <%= link_to "Logout", logout_path, class: 'nav-item nav-right', method: :delete %>
+      <span class="nav-item nav-right">Logged in as <%= link_to current_user.username, user_path(current_user) %></span>
     <% end %>
-
+  
   </div>
 </div>
 
@@ -32,7 +35,22 @@
   </div>
 <% end %>
 
+<div id="content">
 <%= yield %>
+</div>
 
+<div id="footer">
+  <div class="footer-content">
+    <p>
+      The CAVE provides tutoring services free of charge to any registered student at BRCC.
+    </p>
+    <div id="bottom-nav">
+      <%= link_to "BRCC", '//www.brcc.edu/', class: 'nav-item' %>
+      <%= link_to "Center for Academic Vision and Excellence", '//www.brcc.edu/services/peer/', class: 'nav-item' %>
+    </div>
+  </div>
+</div>
+
+</div>
 </body>
 </html>

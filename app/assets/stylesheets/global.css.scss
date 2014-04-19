@@ -6,12 +6,17 @@ body {
   margin: 0;
   font-size: 0.9em;
   font-family: "Lucida Grande", Verdana, sans-serif;
+  height: 100%;
+}
+html {
+  height: 100%;
 }
 
 #header {
   width: 100%;
   overflow: auto;
   background-color: $application-header-background;
+  position: relative;
   margin-bottom: 1em;
   #header-banner {
     h1 {
@@ -25,6 +30,7 @@ body {
     border-top: 1px solid #BBB;
     border-bottom: 1em solid #55F;
     overflow: auto;
+    color: #FFF;
 
     .nav-item {
       margin-top: 0.5em;
@@ -32,21 +38,74 @@ body {
       display: block;
       margin-left: 1em;
       margin-right: 1em;
-      float: right;
       font-size: 1.15em;
       font-weight: bold;
-      text-decoration: none;
     }
+
+    .nav-right {
+      float: right;
+    }
+
+    .nav-left {
+      float: left;
+    }
+
     .spacer {
       margin-left: 2em;
       margin-right: 2em;
     }
     a {
       color: #FFF;
+      text-decoration: none;
       &:hover {
         color: #EE0;
         text-shadow: 0 0 0.5em #DD0;
       }
     }
   }
+}
+
+#footer {
+  width: 100%;
+  min-height: 5em;
+  overflow: auto;
+  background-color: #FFF;
+  margin-top: 1em;
+  border-top: 1px solid #BBB;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  
+  .footer-content {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  p {
+    font-style: italic;
+    font-size: 0.9em;
+  }
+
+  #bottom-nav {
+    .nav-item {
+      text-decoration: none;
+      margin-right: 0.5em;
+    }
+    a {
+      color: #77F;
+      &:hover {
+        color: #EE0;
+      }
+    }
+  }
+}
+
+#content {
+  padding-bottom: 25em;
+}
+
+#container {
+  min-height: 100%;
+  position: relative;
 }
