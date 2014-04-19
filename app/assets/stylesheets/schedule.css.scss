@@ -1,3 +1,46 @@
 // Place all the styles related to the schedule controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "_colors.scss";
+
+#schedule-container {
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 0.9rem;
+
+  .schedule-table {
+    border: 1px solid $schedule-table-border;
+    border-collapse: collapse;
+
+    .schedule-table-day-header {
+      height: 2em;
+      width: 16em;
+      border-left: 1px solid $schedule-table-border;
+      border-right: 1px solid $schedule-table-border;
+      background-color: #77F;
+      color: #FFF;
+      padding-left: 0.5em;
+    }
+
+    .schedule-table-time-header {
+      font-size: 0.9em;
+      font-weight: bold;
+      color: #FFF;
+      background-color:#BBB;
+      border: 1px solid $schedule-table-border;
+      height: 2rem;
+      padding-left: 0.25em;
+      padding-right: 0.5em;
+    }
+
+    .schedule-table-time-ticks {
+      border-left: 1px solid $schedule-table-border;
+      border-right: 1px solid $schedule-table-border;
+      background-color: #DDD;
+      height: 0.75em;
+      width: 1.5em; 
+    }
+  }
+}

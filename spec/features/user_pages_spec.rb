@@ -195,10 +195,10 @@ describe "User pages" do
       end
 
       it "should link to user pages" do
-        click_link('admin')
+        click_link('user')
         expect(page).to have_selector('h1', text: 'User Profile')
-        expect(page).to have_content('admin')
-        expect(page).to have_content('admin@example.com')
+        expect(page).to have_content('user')
+        expect(page).to have_content('user@example.com')
       end
     end
   end

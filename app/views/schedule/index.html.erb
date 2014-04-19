@@ -1,0 +1,38 @@
+<% provide(:title, "#{@start_date.strftime('%A %B %d')} - #{@end_date.strftime('%A %B %d')}") %>
+
+<div id="schedule-container">
+  
+  <table class="schedule-table">
+    <tr class="schedule-table-header-row">
+      <td class="schedule-table-day-header" colspan="8" rowspan="2">
+        <%= @start_date.strftime('%b. %d:') %> 
+        <strong><%= @start_date.strftime('%^A') %></strong>
+      </td>
+      <td class="schedule-table-time-header" colspan="4">9:00am</td>
+      <td class="schedule-table-time-header" colspan="4">10:00am</td>
+      <td class="schedule-table-time-header" colspan="4">11:00am</td>
+      <td class="schedule-table-time-header" colspan="4">12:00pm</td>
+      <td class="schedule-table-time-header" colspan="4">1:00pm</td>
+      <td class="schedule-table-time-header" colspan="4">2:00pm</td>
+      <td class="schedule-table-time-header" colspan="4">3:00pm</td>
+      <td class="schedule-table-time-header" colspan="4">4:00pm</td>
+      <td class="schedule-table-time-header" colspan="4">5:00pm</td>
+      <td class="schedule-table-time-header" colspan="4">6:00pm</td>
+    </tr>
+    <tr class="schedule-table-ticks-row">
+      <% 40.times do %>
+      <td class="schedule-table-time-ticks"></td>
+      <% end %>
+    </tr>
+
+    <% @tutors.each do |tutor| %>
+    <tr class="schedule-table-tutor-row">
+      <td class="schedule-table-tutor-name" colspan="8"><%= tutor.user.username %></td>
+      <% 40.times do %>
+      <td class="schedule-table-schedule-block"></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </table>
+
+</div>
