@@ -6,7 +6,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def index
-    render '/index'
+    if current_user
+      redirect_to schedule_path(start_date: Time.now.beginning_of_week)
+    else
+      render '/index'
+    end
   end
 
   def current_user

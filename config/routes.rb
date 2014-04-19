@@ -1,6 +1,8 @@
 Scheduler::Application.routes.draw do
   root 'application#index'
 
+  match 'schedule/:start_date', to: 'schedule#index', via: 'get', as: 'schedule'
+
   match 'register', to: 'users#new', via: 'get'
 
   match 'login', to: 'sessions#new', via: 'get'
