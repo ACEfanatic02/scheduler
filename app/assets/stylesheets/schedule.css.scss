@@ -13,6 +13,8 @@
   .schedule-table {
     border: 1px solid $schedule-table-border;
     border-collapse: collapse;
+    margin-top: 2em;
+    margin-bottom: 2em;
 
     .schedule-table-day-header {
       height: 2em;
@@ -39,8 +41,8 @@
       border-left: 1px solid $schedule-table-border;
       border-right: 1px solid $schedule-table-border;
       background-color: #DDD;
-      height: 0.75em;
-      width: 1.5em; 
+      height: 0.75rem;
+      width: 1.5rem; 
     }
   }
 }

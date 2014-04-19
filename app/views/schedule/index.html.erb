@@ -1,12 +1,13 @@
-<% provide(:title, "#{@start_date.strftime('%A %B %d')} - #{@end_date.strftime('%A %B %d')}") %>
+<% provide(:title, "#{@days.first.strftime('%A %B %d')} - #{@days.last.strftime('%A %B %d')}") %>
 
 <div id="schedule-container">
   
+  <% @days.each do |day| %>
   <table class="schedule-table">
     <tr class="schedule-table-header-row">
       <td class="schedule-table-day-header" colspan="8" rowspan="2">
-        <%= @start_date.strftime('%b. %d:') %> 
-        <strong><%= @start_date.strftime('%^A') %></strong>
+        <%= day.strftime('%b. %d:') %> 
+        <strong><%= day.strftime('%^A') %></strong>
       </td>
       <td class="schedule-table-time-header" colspan="4">9:00am</td>
       <td class="schedule-table-time-header" colspan="4">10:00am</td>
@@ -34,5 +35,6 @@
     </tr>
     <% end %>
   </table>
+  <% end %>
 
 </div>
