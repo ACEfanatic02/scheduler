@@ -9,12 +9,20 @@
 <body>
 
 <div id="header">
+  <div id="header-banner">
+     <h1>
+       BRCC Center for Academic Vision and Excellence
+     </h1>
+  </div>
   <div id="top-nav">
     <% if current_user.nil? %>
+      <p class="spacer nav-item"></p>
+      <%= link_to "Register", register_path, class: 'nav-item' %>
       <%= link_to "Login", login_path, class: 'nav-item' %>
     <% else %>
       <%= link_to "Logout", logout_path, class: 'nav-item', method: :delete %>
     <% end %>
+
   </div>
 </div>
 
