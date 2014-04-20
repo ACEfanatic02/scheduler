@@ -18,7 +18,7 @@
 
     .schedule-table-day-header {
       height: 2em;
-      width: 16em;
+      min-width: 16em;
       border-left: 1px solid $schedule-table-border;
       border-right: 1px solid $schedule-table-border;
       background-color: #77F;
@@ -42,7 +42,7 @@
       border-right: 1px solid $schedule-table-border;
       background-color: #DDD;
       height: 0.75rem;
-      width: 1.5rem; 
+      min-width: 1.5rem; 
     }
   }
 }
