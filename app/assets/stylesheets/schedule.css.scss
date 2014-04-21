@@ -33,7 +33,7 @@
       background-color:#BBB;
       border: 1px solid $schedule-table-border;
       height: 2rem;
-      padding-left: 0.25em;
+      padding-left: 0.5em;
       padding-right: 0.5em;
     }
 
@@ -43,6 +43,31 @@
       background-color: #DDD;
       height: 0.75rem;
       min-width: 1.5rem; 
+    }
+
+    .schedule-table-tutor-name {
+      padding-left: 0.5em;
+    }
+
+    .schedule-table-tutor-row {
+      border-top: 1px solid $schedule-table-border;
+      &:last-child {
+        border-bottom: 1px solid $schedule-table-border;        
+      }
+      &:hover {
+        border: 1px solid $schedule-table-highlight-border;
+      }
+
+      .schedule-table-schedule-block {
+        background-color: #FFF;
+        border-left: 1px solid $schedule-table-border;
+        border-right: 1px solid $schedule-table-border;
+        width: 1.5rem;
+        height: 1.5rem;
+        &:last-child {
+          border-right: none;
+        }
+      }
     }
   }
 }
