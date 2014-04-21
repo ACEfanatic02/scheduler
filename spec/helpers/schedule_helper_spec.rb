@@ -11,5 +11,20 @@ require 'spec_helper'
 #   end
 # end
 describe ScheduleHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe '#hours_for_day' do
+    let(:today) { Time.now.midnight }
+
+    describe 'return value' do
+      it 'contains the right number of times' do
+        expect(hours_for_day(today, 8, 10).count).to eq(3)
+      end
+
+      it 'provides times on the given day' do
+        hours_for_day(today, 8, 10).each do |time|
+          expect(time.midnight).to eq(today)
+        end
+      end
+    end
+  end
 end
