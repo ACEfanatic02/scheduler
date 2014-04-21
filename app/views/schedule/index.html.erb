@@ -4,27 +4,7 @@
   
   <% @days.each do |day| %>
   <table class="schedule-table">
-    <tr class="schedule-table-header-row">
-      <td class="schedule-table-day-header" colspan="8" rowspan="2">
-        <%= day.strftime('%b. %d:') %> 
-        <strong><%= day.strftime('%^A') %></strong>
-      </td>
-      <td class="schedule-table-time-header" colspan="4">9:00am</td>
-      <td class="schedule-table-time-header" colspan="4">10:00am</td>
-      <td class="schedule-table-time-header" colspan="4">11:00am</td>
-      <td class="schedule-table-time-header" colspan="4">12:00pm</td>
-      <td class="schedule-table-time-header" colspan="4">1:00pm</td>
-      <td class="schedule-table-time-header" colspan="4">2:00pm</td>
-      <td class="schedule-table-time-header" colspan="4">3:00pm</td>
-      <td class="schedule-table-time-header" colspan="4">4:00pm</td>
-      <td class="schedule-table-time-header" colspan="4">5:00pm</td>
-      <td class="schedule-table-time-header" colspan="4">6:00pm</td>
-    </tr>
-    <tr class="schedule-table-ticks-row">
-      <% 40.times do %>
-      <td class="schedule-table-time-ticks"></td>
-      <% end %>
-    </tr>
+    <%= render partial: "schedule_header", locals: { day: day } %>
 
     <% @tutors.each do |tutor| %>
     <tr class="schedule-table-tutor-row">

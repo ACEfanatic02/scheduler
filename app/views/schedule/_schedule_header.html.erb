@@ -1,0 +1,16 @@
+    <tr class="schedule-table-header-row">
+      <td class="schedule-table-day-header" colspan="8" rowspan="2">
+        <%= day.strftime('%b. %d:') %> 
+        <strong><%= day.strftime('%^A') %></strong>
+      </td>
+      <% hours_for_day(day, 9, 18).each do |time| %>
+      <td class="schedule-table-time-header" colspan="4">
+        <%= time.strftime('%l:%M%P') %>
+      </td>
+      <% end %>
+    </tr>
+    <tr class="schedule-table-ticks-row">
+      <% 40.times do %>
+      <td class="schedule-table-time-ticks"></td>
+      <% end %>
+    </tr>
