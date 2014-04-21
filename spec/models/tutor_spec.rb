@@ -27,4 +27,23 @@ describe Tutor do
     @tutor.subjects.create(course_number: "CSC200", course_name: "Intro to Computer Science")
     expect(@tutor.subjects.count).to eq(1)
   end
+
+  describe 'schedule for day' do
+    before do
+      @today = Time.now.midnight
+      client = User.create!(username: 'client', email: 'client@example.com', 
+        password: 'password', password_confirmation: 'password').build_client
+      client.save!
+      @tutor.save!
+      csc200 = @tutor.subjects.create!(course_number: 'CSC200', course_name: 'Intro to Computer Science')
+      @tutor.appointments.create!(client: client, subject: csc200, 
+        start_time: @today.change(hour: 9, min: 0), end_time: @today.change(hour: 9, min: 30))
+    end
+
+    it "should list appointment" do
+      schedule = @tutor.schedule_for(@today, 9, 18)
+      expect(schedule).to_not be_nil
+      expect(schedule.to_a.first[:type]).to eq(:appointment)
+    end
+  end
 end
