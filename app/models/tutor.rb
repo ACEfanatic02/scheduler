@@ -10,10 +10,7 @@ class Tutor < ActiveRecord::Base
     start_time = day.change(hour: start_hour)
     end_time = day.change(hour: end_hour)
 
-    schedule = TutorDaySchedule.new(self, day, start_time, end_time)
-    schedule << appointments.where('start_time >= ? and end_time <= ?', start_time, end_time)
-
-    schedule
+    TutorDaySchedule.new(self, day, start_time, end_time)
   end
 
   class TutorDaySchedule
@@ -24,6 +21,9 @@ class Tutor < ActiveRecord::Base
       @start_time = start_time
       @end_time = end_time
       @blocks = []
+      @tutor.appointments.where('start_time >= ? and end_time <= ?', start_time, end_time).each do |appt|
+        @blocks << appt
+      end
     end
 
     def to_a
@@ -52,12 +52,6 @@ class Tutor < ActiveRecord::Base
           })
           cur = cur.advance(minutes: 15)
         end
-      end
-    end
-
-    def <<(block)
-      block.each do |b|
-        @blocks << b
       end
     end
 
