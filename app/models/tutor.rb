@@ -27,17 +27,17 @@ class Tutor < ActiveRecord::Base
     end
 
     def to_a
-      rv = []
+      rv = Array.new
       self.each { |e| rv << e }
       rv
     end
 
     def each
       cur = @start_time
-      until cur > @end_time do
+      until cur >= @end_time do
         if block = get_block(cur)
           yield ({
-            length: block.length / 15.minutes,
+            length: block.length / 15,
             type: :appointment,
             time: cur,
             contents: block,
