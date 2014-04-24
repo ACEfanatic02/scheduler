@@ -15,6 +15,8 @@ class Tutor < ActiveRecord::Base
 
   class TutorDaySchedule
 
+    include Enumerable
+
     def initialize(tutor, day, start_time, end_time)
       @tutor = tutor
       @day = day
@@ -25,13 +27,7 @@ class Tutor < ActiveRecord::Base
         @blocks << appt
       end
     end
-
-    def to_a
-      rv = Array.new
-      self.each { |e| rv << e }
-      rv
-    end
-
+    
     def each
       cur = @start_time
       until cur >= @end_time do

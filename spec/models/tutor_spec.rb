@@ -47,20 +47,20 @@ describe Tutor do
       it "should list appointment" do
         schedule = @tutor.schedule_for(@today, 9, 18)
         expect(schedule).to_not be_nil
-        expect(schedule.to_a.first[:type]).to eq(:appointment)
-        expect(schedule.to_a.first[:contents]).to_not be_nil
+        expect(schedule.first[:type]).to eq(:appointment)
+        expect(schedule.first[:contents]).to_not be_nil
       end
 
       it "appointment should have a length of 2" do
         schedule = @tutor.schedule_for(@today, 9, 18)
-        expect(schedule.to_a.first[:length]).to eq(2)
+        expect(schedule.first[:length]).to eq(2)
       end
 
       it "should contain one cell length per 15 minutes" do
         schedule = @tutor.schedule_for(@today, 9, 18)
         expected_cells = (18 - 9) * 4
         expect(
-          schedule.to_a.inject(0) { |sum, block| sum += block[:length] } 
+          schedule.inject(0) { |sum, block| sum += block[:length] } 
         ).to eq(expected_cells)
       end
     end
@@ -77,7 +77,7 @@ describe Tutor do
         schedule = @tutor.schedule_for(@today, 9, 18)
         expected_cells = (18 - 9) * 4
         expect(
-          schedule.to_a.inject(0) { |sum, block| sum += block[:length] } 
+          schedule.inject(0) { |sum, block| sum += block[:length] } 
         ).to eq(expected_cells)
       end
     end
