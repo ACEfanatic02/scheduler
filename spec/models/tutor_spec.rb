@@ -31,19 +31,34 @@ describe Tutor do
   describe 'schedule for day' do
     before do
       @today = Time.now.midnight
-      client = User.create!(username: 'client', email: 'client@example.com', 
-        password: 'password', password_confirmation: 'password').build_client
-      client.save!
       @tutor.save!
-      csc200 = @tutor.subjects.create!(course_number: 'CSC200', course_name: 'Intro to Computer Science')
-      @tutor.appointments.create!(client: client, subject: csc200, 
-        start_time: @today.change(hour: 9, min: 0), end_time: @today.change(hour: 9, min: 30))
     end
 
-    it "should list appointment" do
-      schedule = @tutor.schedule_for(@today, 9, 18)
-      expect(schedule).to_not be_nil
-      expect(schedule.to_a.first[:type]).to eq(:appointment)
+    describe "with an appointment" do
+      before do
+        client = User.create!(username: 'client', email: 'client@example.com', 
+          password: 'password', password_confirmation: 'password').build_client
+        client.save!
+        csc200 = @tutor.subjects.create!(course_number: 'CSC200', course_name: 'Intro to Computer Science')
+        @tutor.appointments.create!(client: client, subject: csc200, 
+          start_time: @today.change(hour: 9, min: 0), end_time: @today.change(hour: 9, min: 30))
+      end
+
+      it "should list appointment" do
+        schedule = @tutor.schedule_for(@today, 9, 18)
+        expect(schedule).to_not be_nil
+        expect(schedule.to_a.first[:type]).to eq(:appointment)
+        expect(schedule.to_a.first[:contents]).to_not be_nil
+      end
+    end
+
+    describe "without an appointment" do
+
+      it "should contain only open blocks" do
+        @tutor.schedule_for(@today, 9, 18).each do |block|
+          expect(block[:type]).to eq(:open)
+        end
+      end
     end
   end
 end
