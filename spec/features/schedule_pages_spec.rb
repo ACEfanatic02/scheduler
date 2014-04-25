@@ -14,7 +14,8 @@ describe "Schedule pages" do
 
   describe "page contents" do
     before do
-      visit schedule_path(start_date: DateTime.civil_from_format(:local, 2014, 3, 31))
+      @today = DateTime.civil_from_format(:local, 2014, 3, 31)
+      visit schedule_path(start_date: @today)
     end
 
     it "has the right title" do
@@ -42,6 +43,18 @@ describe "Schedule pages" do
       # should *not* show up -- but we don't have blackouts implmented yet.
       expect(all('.schedule-table-tutor-name', text: 'alice').count).to eq(5)
       expect(all('.schedule-table-tutor-name', text: 'bob').count).to eq(5)
+    end
+
+    describe "schedule blocks" do
+      before do
+        @alice.tutor.appointments.create(client: @bob.create_client, subject: @csc200,
+                                         start_time: @today.change(hour: 9), end_time: @today.change(hour: 9, min: 30))
+        visit schedule_path(start_date: @today)
+      end
+
+      it "should contain an appointment with the right time" do
+        expect(page).to have_selector(".schedule-block-appointment[data-time='#{@today.change(hour: 9)}']")
+      end
     end
   end
 end
