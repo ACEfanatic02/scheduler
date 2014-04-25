@@ -3,10 +3,12 @@ Scheduler::Application.routes.draw do
 
   match 'schedule/:start_date', to: 'schedule#index', via: 'get', as: 'schedule'
 
+  match 'appointments/:tutor_id/:start_time', to: 'appointments#new', via: 'get', as: 'appointments'
+
   match 'register', to: 'users#new', via: 'get'
 
   match 'login', to: 'sessions#new', via: 'get'
-  match 'logout', to: 'sessions#destroy', via: 'delete' 
+  match 'logout', to: 'sessions#destroy', via: 'delete'
 
   resources :users
   resources :tutors
