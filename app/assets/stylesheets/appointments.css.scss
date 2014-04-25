@@ -1,3 +1,75 @@
 // Place all the styles related to the appointments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "_colors.scss";
+
+#appt-page-container {
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#new-appt-container {
+  width: 100%;
+  background-color: $form-background-color;
+  overflow: auto;
+  border: 1px solid $form-elem-border-color;
+
+  hr {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    color: $form-elem-border-color;
+    background-color: $form-elem-border-color;
+    height: 1px;
+    border: none;
+  }
+
+  .appt-form-label {
+    float: left;
+    text-align: right;
+    width: 30%;
+  }
+
+  .appt-form-entry {
+    float: right;
+    width: 65%;
+  }
+
+  .appt-form-item-wrap {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.75em;
+    min-height: 1.5em;
+  }
+
+  .appt-form-buttons-wrap {
+    float: right;
+    width: 65%;
+    padding-bottom: 0.5em;
+  }
+
+  .appt-form-explanation {
+    font-size: 0.75em;
+    font-style: italic;
+  }
+
+  .appt-form-required {
+    color: #D00;
+    font-weight: bold;
+  }
+
+  #appt-notes {
+    width: 100%;
+    min-width: 100%;
+    height: 10em;
+    min-height: 5em; 
+  }
+
+  #appt-tutor-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: $form-heading-color;
+  }
+}

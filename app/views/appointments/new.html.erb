@@ -1,0 +1,64 @@
+<% provide(:title, 'Make Appointment') %>
+
+<div id="appt-page-container">
+
+<div id="new-appt-container">
+  <form action="" id="new-appt-form" method="POST">
+    <div class="appt-form-item-wrap">
+      <div class="appt-form-label">
+        <span id="appt-tutor-name">Tutor: <%= @tutor.user.username %></span>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="appt-form-item-wrap">
+      <div class="appt-form-label">
+        <span class="appt-form-required">*</span>
+        <label for="appt-subject">Subject</label>
+      </div>
+      <div class="appt-form-entry">
+        <select name="appt-subject" id="appt-subject">
+          <% @tutor.subjects.each do |subject| %>
+          <option selected></option>
+          <option value="<%= subject %>"><%= subject.course_number %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <div class="appt-form-item-wrap">
+      <div class="appt-form-label">
+        <span class="appt-form-required">*</span>
+        <label for="appt-length">Appointment Length</label>
+      </div>
+      <div class="appt-form-entry">
+        <input type="radio" name="appt-length" value="15" class="appt-length">15 minutes
+        <input type="radio" name="appt-length" value="30" class="appt-length">30 minutes
+      </div>
+    </div>
+
+    <div class="appt-form-item-wrap">
+      <div class="appt-form-label">
+        <span id="appt-form-notes-required" class="appt-form-required hidden">*</span>
+        <label for="appt-form-notes">I want to work on:</label>
+        <p class="appt-form-explanation">
+          Please be specific, it gives your tutor an opportunity to prepare beforehand.
+        </p>
+      </div>
+      <div class="appt-form-entry">
+        <textarea name="appt-form-notes" id="appt-notes"></textarea>
+      </div>
+    </div>
+
+    <div class="appt-form-item-wrap">
+      <div class="appt-form-buttons-wrap">
+        <button type="button" id="appt-button-submit">Save</button>
+        <button type="button" id="appt-button-cancel">Cancel</button>
+      </div>
+    </div>
+    
+  </form>
+</div>
+
+</div>

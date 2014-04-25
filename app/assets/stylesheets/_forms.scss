@@ -38,4 +38,10 @@ form {
       color: $button-hover-text-color;
     }
   }
+  select {
+    width: 6.5em;
+    background-color: $form-elem-background-color;
+    border: 1px solid $form-elem-border-color;
+    margin-top: 0;
+  }
 }
