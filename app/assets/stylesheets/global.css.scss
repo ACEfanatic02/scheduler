@@ -9,8 +9,13 @@ body {
   height: 100%;
   background-color: $application-background;
 }
+
 html {
   height: 100%;
+}
+
+.hidden {
+  display: none;
 }
 
 #header {

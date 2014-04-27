@@ -22,6 +22,7 @@
           <% @tutor.subjects.each do |subject| %>
           <option selected></option>
           <option value="<%= subject %>"><%= subject.course_number %></option>
+          <option value="Other">Other</option>
           <% end %>
         </select>
       </div>
