@@ -10,7 +10,7 @@
     <tr class="schedule-table-tutor-row" data-tutor-id="<%= tutor.id %>">
       <td class="schedule-table-tutor-name" colspan="8"><%= tutor.user.username %></td>
       <% tutor.schedule_for(day, 9, 19).each do |block| %>
-      <td class="schedule-table-schedule-block schedule-block-<%= block[:type] %>" data-time="<%= block[:time] %>", colspan="<%= block[:length] %>"></td>      
+      <td class="schedule-table-schedule-block schedule-block-<%= block[:type] %>" data-time="<%= block[:time] %>" data-appt-link="<%= appointments_path(tutor, block[:time]) %>" colspan="<%= block[:length] %>"></td>      
       <% end %>
     </tr>
     <% end %>
