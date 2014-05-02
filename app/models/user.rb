@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   before_save { self.email = email.downcase }
-  after_save { build_client.save! }
+  after_create :force_client
 
   has_one :tutor
   has_one :client
@@ -19,5 +19,9 @@ class User < ActiveRecord::Base
 
   def tutor?
     !tutor.nil?
+  end
+
+  def force_client
+    !client.nil? || create_client!
   end
 end

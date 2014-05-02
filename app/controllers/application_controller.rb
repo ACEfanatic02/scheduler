@@ -25,6 +25,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_login
+    unless current_user
+      flash[:error] = "This action requires you to login."
+      redirect_to login_url
+      false
+    end
+  end
+
   def require_user_login_or_admin
     unless current_user && (current_user.id == params[:id].to_i || current_user.admin?)
       flash[:error] = "This action requires administrative privileges."
