@@ -10,6 +10,7 @@ Scheduler::Application.routes.draw do
   match 'login', to: 'sessions#new', via: 'get'
   match 'logout', to: 'sessions#destroy', via: 'delete'
 
+  resources :appointments
   resources :users
   resources :tutors
   resource :sessions
