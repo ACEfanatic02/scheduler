@@ -53,7 +53,7 @@ describe "Schedule pages" do
       end
 
       it "should contain an appointment with the right time" do
-        expect(page).to have_selector(".schedule-block-appointment[data-time='#{@today.change(hour: 9)}']")
+        expect(page).to have_link("\u00A0", href: appointments_path(@alice.tutor, @today.change(hour: 9)))
       end
     end
   end
