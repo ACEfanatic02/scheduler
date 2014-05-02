@@ -3,7 +3,7 @@
 <div id="appt-page-container">
 
 <div id="new-appt-container">
-  <form action="" id="new-appt-form" method="POST">
+  <form action="<%= make_appointment_path %>" id="new-appt-form" method="POST">
     <div class="appt-form-item-wrap">
       <div class="appt-form-label">
         <span id="appt-tutor-name">Tutor: <%= @tutor.user.username %></span>
@@ -15,13 +15,13 @@
     <div class="appt-form-item-wrap">
       <div class="appt-form-label">
         <span class="appt-form-required">*</span>
-        <label for="appt-subject">Subject</label>
+        <label for="subject">Subject</label>
       </div>
       <div class="appt-form-entry">
-        <select name="appt-subject" id="appt-subject">
+        <select name="subject" id="appt-subject">
           <% @tutor.subjects.each do |subject| %>
           <option selected></option>
-          <option value="<%= subject %>"><%= subject.course_number %></option>
+          <option value="<%= subject.id %>"><%= subject.course_number %></option>
           <option value="Other">Other</option>
           <% end %>
         </select>
@@ -31,24 +31,24 @@
     <div class="appt-form-item-wrap">
       <div class="appt-form-label">
         <span class="appt-form-required">*</span>
-        <label for="appt-length">Appointment Length</label>
+        <label for="length">Appointment Length</label>
       </div>
       <div class="appt-form-entry">
-        <input type="radio" name="appt-length" value="15" class="appt-length">15 minutes
-        <input type="radio" name="appt-length" value="30" class="appt-length">30 minutes
+        <input type="radio" name="length" value="15" class="appt-length" checked="checked">15 minutes
+        <input type="radio" name="length" value="30" class="appt-length">30 minutes
       </div>
     </div>
 
     <div class="appt-form-item-wrap">
       <div class="appt-form-label">
         <span id="appt-form-notes-required" class="appt-form-required hidden">*</span>
-        <label for="appt-form-notes">I want to work on:</label>
+        <label for="notes">I want to work on:</label>
         <p class="appt-form-explanation">
           Please be specific, it gives your tutor an opportunity to prepare beforehand.
         </p>
       </div>
       <div class="appt-form-entry">
-        <textarea name="appt-form-notes" id="appt-notes"></textarea>
+        <textarea name="notes" id="appt-notes"></textarea>
       </div>
     </div>
 
@@ -59,6 +59,10 @@
       </div>
     </div>
     
+    <input type="hidden" name="tutor_id" value="<%= @tutor.id %>">
+    <input type="hidden" name="client_id" value="<%= @client.id %>">
+    <input type="hidden" name="start_time" value="<%= @start_time %>">
+
   </form>
 </div>
 

@@ -4,6 +4,7 @@ Scheduler::Application.routes.draw do
   match 'schedule/:start_date', to: 'schedule#index', via: 'get', as: 'schedule'
 
   match 'appointments/:tutor_id/:start_time', to: 'appointments#new', via: 'get', as: 'appointments'
+  match 'appointments', to: 'appointments#create', via: 'post', as: 'make_appointment'
 
   match 'register', to: 'users#new', via: 'get'
 

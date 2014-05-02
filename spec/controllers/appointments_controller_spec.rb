@@ -7,6 +7,10 @@ describe AppointmentsController do
       user = User.create!(username: 'user', email: 'user@example.com',
                           password: 'password', password_confirmation: 'password')
       @tutor = user.create_tutor
+      client_user = User.create!(username: 'client', email: 'client@example.com',
+                                password: 'password', password_confirmation: 'password')
+      @client = client_user.create_client
+      login_as client_user
     end
 
     it 'should reject an invalid tutor id' do
@@ -34,19 +38,20 @@ describe AppointmentsController do
       @client = client_user.create_client
       @subject = Subject.create!(course_number: 'SUB123', course_name: 'Test Subject')
       @tutor.subjects << @subject
+      login_as client_user
     end
 
 
     let!(:monday_at_ten) { Time.now.beginning_of_week.change(hour: 10) }
 
     it 'should reject invalid data' do
-      post :create, tutor: -1, client: @client, start_time: monday_at_ten, length: 15, subject: @subject
+      post :create, tutor_id: -1, client_id: @client, start_time: monday_at_ten, length: 15, subject: @subject
 
       expect(flash[:error]).to_not be_nil
     end
 
     it 'should accept valid data' do
-      post :create, tutor: @tutor, client: @client, start_time: monday_at_ten, length: 15, subject: @subject
+      post :create, tutor_id: @tutor.id, client_id: @client.id, start_time: monday_at_ten, length: 15, subject: @subject.id
 
       expect(flash[:error]).to be_nil
       expect(flash[:success]).to_not be_nil

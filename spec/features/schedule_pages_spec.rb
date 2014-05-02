@@ -10,11 +10,13 @@ describe "Schedule pages" do
     @eng111 = Subject.create!(course_number: 'ENG111', course_name: 'College Composition I')
     @alice.build_tutor(subjects: [@csc200]).save!
     @bob.build_tutor(subjects: [@eng111]).save!
+
   end
 
   describe "page contents" do
     before do
       @today = DateTime.civil_from_format(:local, 2014, 3, 31)
+      login_as 'bob@example.com', 'password'
       visit schedule_path(start_date: @today)
     end
 
@@ -54,6 +56,55 @@ describe "Schedule pages" do
 
       it "should contain an appointment with the right time" do
         expect(page).to have_link("\u00A0", href: appointments_path(@alice.tutor, @today.change(hour: 9)))
+      end
+    end
+  end
+
+  describe "making an appointment" do
+
+    before do
+      @today = DateTime.civil_from_format(:local, 2014, 3, 31)
+      login_as 'bob@example.com', 'password'
+      visit schedule_path(start_date: @today)
+      click_link("\u00A0", href: appointments_path(@alice.tutor, @today.change(hour: 10)))
+    end
+
+    describe 'form contents' do
+      subject { page }
+
+      it { should have_selector('select[name=subject]') }
+      it { should have_selector('input[type=radio][name=length][value="15"]') }
+      it { should have_selector('input[type=radio][name=length][value="30"]') }
+      it { should have_field('notes') }
+
+      it { should have_button('Save') }
+      it { should have_button('Cancel') }
+    end
+
+    describe 'form validation', js: true do
+
+      it 'requires a subject to be selected' do
+
+        click_button 'Save'
+
+        expect(page).to have_selector('select[name=subject].form-field-error')
+      end
+
+      it 'rejects empty notes if "Other" subject is selected' do
+        select 'Other', from: 'subject'
+
+        click_button 'Save'
+
+        expect(page).to have_selector('textarea[name=notes].form-field-error')
+      end
+
+      it 'does not require notes for actual subjects' do
+        select 'CSC200', from: 'subject'
+
+        click_button 'Save'
+
+        expect(page).to have_no_selector('.flash-error')
+        expect(page).to have_selector('.flash-success')
       end
     end
   end
