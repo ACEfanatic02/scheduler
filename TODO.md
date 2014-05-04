@@ -1,17 +1,25 @@
 # TODO
 
 ### Schedule
-[ ] User should be able to view:
-  a. Their own appointments
-  b. Appointments with them (as a tutor)
-[ ] Do not display tutors who have a day completely blacked out.
+ 
+- [ ] User should be able to view:
+  1. Their own appointments
+  2. Appointments with them (as a tutor)
+- [ ] Do not display tutors who have a day completely blacked out.
 
 ### Appointments
-[ ] Blackout
-[ ] Store and validate notes
+
+- [ ] Blackout
+- [ ] Store and validate notes
 
 ### Subjects
-[ ] "Other"
+
+- [ ] "Other"
+
+### Users
+
+- [ ] Switch to using first/last names for display of users.  Username only as an identifier, and derive it from the user's email address.
 
 ### General
-[ ] Clean up tests to use fixtures and mocks where applicable.
+
+- [ ] Clean up tests to use fixtures and mocks where applicable.
