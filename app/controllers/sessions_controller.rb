@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:success] = "Successfully logged in."
-      redirect_to root_url
+      redirect_to pop_location
     else
       flash[:error] = "Invalid email or password."
       render "new"

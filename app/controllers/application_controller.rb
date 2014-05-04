@@ -17,6 +17,14 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
+  def stash_location(location = nil)
+    session[:return_to] = location || request.fullpath
+  end
+
+  def pop_location(default = root_url)
+    session[:return_to] || root_url
+  end
+
   def require_admin
     unless current_user && current_user.admin?
       flash[:error] = "This action requires administrative privileges."
@@ -28,6 +36,7 @@ class ApplicationController < ActionController::Base
   def require_login
     unless current_user
       flash[:error] = "This action requires you to login."
+      stash_location
       redirect_to login_url
       false
     end
