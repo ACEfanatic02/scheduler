@@ -16,15 +16,17 @@ describe Appointment do
     @client.save!
     @tutor.save!
 
-    @subject = Subject.new(course_number: "CSC200", course_name: "Intro to Computer Science")
+    @subject = Subject.create!(course_number: "CSC200", course_name: "Intro to Computer Science")
+    @other = Subject.create!(course_number: "Other", course_name: "Other")
 
-    @tutor.subjects << @subject
+    @tutor.subjects << [@subject, @other]
 
     @appointment = Appointment.new(client: @client, 
                                    tutor: @tutor, 
                                    subject: @subject, 
                                    start_time: Time.now.beginning_of_hour, 
-                                   end_time: Time.now.end_of_hour)
+                                   end_time: Time.now.end_of_hour,
+                                   notes: "")
   end
 
   subject { @appointment }
@@ -32,6 +34,7 @@ describe Appointment do
   it { should respond_to(:client) }
   it { should respond_to(:tutor) }
   it { should respond_to(:subject) }
+  it { should respond_to(:notes) }
 
   it { should respond_to(:start_time) }
   it { should respond_to(:length) }
@@ -71,6 +74,24 @@ describe Appointment do
                                            course_name: "English Composition I") 
       end
       it { should_not be_valid }
+    end
+
+    describe "with subject 'Other'" do
+      before do  
+        @appointment.subject = @other
+      end
+
+      describe "with notes" do
+        before { @appointment.notes = "Notes!" }
+
+        it { should be_valid }
+      end
+
+      describe "without notes" do
+        before { @appointment.notes = " " }
+
+        it { should_not be_valid }
+      end
     end
 
     describe "with negative time range" do

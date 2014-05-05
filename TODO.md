@@ -10,7 +10,7 @@
 ### Appointments
 
 - [ ] Blackout
-- [ ] Store and validate notes
+- [x] Store and validate notes
 
 ### Subjects
 

@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140415211454) do
+ActiveRecord::Schema.define(version: 20140505154813) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "appointments", force: true do |t|
     t.integer  "tutor_id"
@@ -21,6 +24,7 @@ ActiveRecord::Schema.define(version: 20140415211454) do
     t.integer  "subject_id"
     t.datetime "start_time"
     t.datetime "end_time"
+    t.text     "notes"
   end
 
   create_table "clients", force: true do |t|
@@ -36,7 +40,7 @@ ActiveRecord::Schema.define(version: 20140415211454) do
     t.datetime "updated_at"
   end
 
-  add_index "subjects", ["course_number"], name: "index_subjects_on_course_number", unique: true
+  add_index "subjects", ["course_number"], name: "index_subjects_on_course_number", unique: true, using: :btree
 
   create_table "subjects_tutors", id: false, force: true do |t|
     t.integer "subject_id"
@@ -58,6 +62,6 @@ ActiveRecord::Schema.define(version: 20140415211454) do
     t.boolean  "admin"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
 end

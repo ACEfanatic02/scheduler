@@ -6,6 +6,9 @@ class Appointment < ActiveRecord::Base
   validates :tutor, presence: true
   validates :client, presence: true
   validates :subject, presence: true
+  validates_presence_of :notes, if: ->(appt) {
+    appt.subject && appt.subject.course_number == "Other"
+  }
 
   validates :start_time, presence: true
   validates :end_time, presence: true
