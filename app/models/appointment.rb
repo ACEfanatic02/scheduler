@@ -4,7 +4,9 @@ class Appointment < ActiveRecord::Base
   belongs_to :subject
 
   validates :tutor, presence: true
-  validates :client, presence: true
+  validates_presence_of :client, if: ->(appt) {
+    !appt.blackout?
+  }
   validates :subject, presence: true
   validates_presence_of :notes, if: ->(appt) {
     appt.subject && appt.subject.course_number == "Other"

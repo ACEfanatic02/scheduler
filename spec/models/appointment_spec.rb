@@ -35,6 +35,7 @@ describe Appointment do
   it { should respond_to(:tutor) }
   it { should respond_to(:subject) }
   it { should respond_to(:notes) }
+  it { should respond_to(:blackout?) }
 
   it { should respond_to(:start_time) }
   it { should respond_to(:length) }
@@ -51,6 +52,15 @@ describe Appointment do
     describe "with no client" do
       before { @appointment.client = nil }
       it { should_not be_valid }
+    end
+
+    describe "blackout does not require a client" do
+      before do 
+        @appointment.blackout = true
+        @appointment.client = nil
+      end
+      
+      it { should be_valid }
     end
 
     describe "with no subject" do

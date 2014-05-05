@@ -9,7 +9,8 @@
 
 ### Appointments
 
-- [ ] Blackout
+- [x] Blackout (model)
+- [ ] Blackout (views)
 - [x] Store and validate notes
 
 ### Subjects
