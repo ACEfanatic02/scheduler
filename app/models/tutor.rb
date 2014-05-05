@@ -6,6 +6,12 @@ class Tutor < ActiveRecord::Base
 
   has_and_belongs_to_many :subjects
 
+  after_create do |tutor|
+    other = Subject.find_by_course_number("Other")
+    other ||= Subject.create(course_number: "Other", course_name: "Other") 
+    tutor.subjects << other
+  end
+
   def schedule_for(day, start_hour, end_hour)
     start_time = day.change(hour: start_hour)
     end_time = day.change(hour: end_hour)

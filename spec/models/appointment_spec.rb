@@ -17,7 +17,8 @@ describe Appointment do
     @tutor.save!
 
     @subject = Subject.create!(course_number: "CSC200", course_name: "Intro to Computer Science")
-    @other = Subject.create!(course_number: "Other", course_name: "Other")
+    @other = Subject.find_by_course_number("Other")
+    @other ||= Subject.create!(course_number: "Other", course_name: "Other")
 
     @tutor.subjects << [@subject, @other]
 
@@ -59,7 +60,7 @@ describe Appointment do
         @appointment.blackout = true
         @appointment.client = nil
       end
-      
+
       it { should be_valid }
     end
 

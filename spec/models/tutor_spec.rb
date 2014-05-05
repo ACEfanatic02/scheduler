@@ -24,8 +24,16 @@ describe Tutor do
 
   it "can access and modify its subjects" do
     @tutor.save!
-    @tutor.subjects.create(course_number: "CSC200", course_name: "Intro to Computer Science")
-    expect(@tutor.subjects.count).to eq(1)
+    # @tutor.subjects.create(course_number: "CSC200", course_name: "Intro to Computer Science")
+    # expect(@tutor.subjects.count).to eq(1)
+    expect {
+      @tutor.subjects.create(course_number: "CSC200", course_name: "Intro to Computer Science")
+    }.to change(@tutor.subjects, :count).by(1)
+  end
+
+  it "tutors 'Other' subject by default" do
+    @tutor.save!
+    expect(@tutor.subjects.exists?(course_number: "Other")).to be_truthy
   end
 
   describe 'schedule for day' do
