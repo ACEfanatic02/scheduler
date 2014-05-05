@@ -2,7 +2,7 @@
 
 ### Schedule
  
-- [ ] User should be able to view:
+- [ ] User should be able to view (and edit):
   1. Their own appointments
   2. Appointments with them (as a tutor)
 - [ ] Do not display tutors who have a day completely blacked out.
@@ -15,6 +15,7 @@
 ### Subjects
 
 - [ ] "Other"
+- [ ] Insert subjects via DB seed rather than an external interface?
 
 ### Users
 
