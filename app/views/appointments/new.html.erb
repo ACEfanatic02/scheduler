@@ -19,10 +19,9 @@
       </div>
       <div class="appt-form-entry">
         <select name="subject" id="appt-subject">
-          <% @tutor.subjects.each do |subject| %>
           <option selected></option>
+          <% @tutor.subjects.each do |subject| %>
           <option value="<%= subject.id %>"><%= subject.course_number %></option>
-          <option value="Other">Other</option>
           <% end %>
         </select>
       </div>
