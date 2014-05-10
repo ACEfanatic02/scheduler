@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe "Schedule pages" do
   before do
-    @alice = User.create!(username: 'alice', email: 'alice@example.com',
+    @alice = User.create(username: 'alice', email: 'alice@example.com',
                           password: 'password', password_confirmation: 'password')
-    @bob = User.create!(username: 'bob', email: 'bob@example.com',
+    @bob = User.create(username: 'bob', email: 'bob@example.com',
                         password: 'password', password_confirmation: 'password')
-    @csc200 = Subject.create!(course_number: 'CSC200', course_name: 'Intro to Computer Science')
-    @eng111 = Subject.create!(course_number: 'ENG111', course_name: 'College Composition I')
+    @csc200 = Subject.create(course_number: 'CSC200', course_name: 'Intro to Computer Science')
+    @eng111 = Subject.create(course_number: 'ENG111', course_name: 'College Composition I')
     @alice.build_tutor(subjects: [@csc200]).save!
     @bob.build_tutor(subjects: [@eng111]).save!
 

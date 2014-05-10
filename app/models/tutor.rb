@@ -7,8 +7,10 @@ class Tutor < ActiveRecord::Base
   has_and_belongs_to_many :subjects
 
   after_create do |tutor|
-    other = Subject.find_by_course_number("Other")
-    other ||= Subject.create(course_number: "Other", course_name: "Other") 
+    other = Subject.find_or_create_by(course_number: "Other") do |subject|
+      subject.course_name = "Other"
+    end
+
     tutor.subjects << other
   end
 

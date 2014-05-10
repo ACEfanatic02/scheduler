@@ -24,7 +24,7 @@ $(function() {
       valid = false;
     }
 
-    if (subject_elem.val() == "Other") {
+    if ($('#appt-subject :selected').text() == "Other") {
       if (!notes_elem.val()) {
         notes_elem.addClass('form-field-error');
         valid = false;
